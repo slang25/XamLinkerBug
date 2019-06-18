@@ -18,12 +18,17 @@ namespace XamLinkerBug
         {
             InitializeComponent();
 
-            var list = new List<string> { "hello hello" };
+            var list = new List<ItemViewModel> { new ItemViewModel { Prop = "hello hello" } };
             foreach (var item in list.AsQueryable().GroupBy(x => new { A = 1, B = 2 }))
             {
-                output.Text = item.FirstOrDefault();
+                output.Text = item.First().Prop;
                 break;
             }
+        }
+
+        class ItemViewModel
+        {
+            public string Prop { get; set; }
         }
     }
 }
